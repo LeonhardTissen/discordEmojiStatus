@@ -8,15 +8,7 @@
 		</div>
 		<hr class="border-discord-200 border-2">
 		<div id="colors" class="rounded-lg border-2 m-2 p-1 flex justify-center">
-			<ColorButton color="#DD2E44" def/>
-			<ColorButton color="#F4900C"/>
-			<ColorButton color="#FDCB58"/>
-			<ColorButton color="#78B159"/>
-			<ColorButton color="#55ACEE"/>
-			<ColorButton color="#AA8ED6"/>
-			<ColorButton color="#C1694F"/>
-			<ColorButton color="#E6E7E8"/>
-			<ColorButton color="#31373D"/>
+			<ColorButton v-for="(color, emoji) in emojiColors" :key="emoji" :color="color" :def="emoji === Emoji.Red" />
 		</div>
 	</div>
 </template>
@@ -25,6 +17,7 @@
 import ToolButton from './ToolButton.vue';
 import ToggleButton from './ToggleButton.vue';
 import ColorButton from './ColorButton.vue';
+import { emojiColors, Emoji } from '../emoji';
 
 export default {
     name: 'ToolSidebar',
@@ -32,6 +25,9 @@ export default {
 		ToolButton,
 		ToggleButton,
 		ColorButton,
+	},
+	data() {
+		return { emojiColors, Emoji }
 	}
 }
 </script>
