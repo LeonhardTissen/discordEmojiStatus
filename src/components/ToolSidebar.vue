@@ -1,5 +1,5 @@
 <template>
-	<div id="toolbar" class="h-full bg-discord-500-a backdrop-blur-sm fixed top-0 left-0 flex items-center justify-center flex-col">
+	<div id="toolbar" class="h-screen bg-discord-500-a backdrop-blur-sm fixed top-0 left-0 flex items-center justify-center flex-col">
 		<div class="flex justify-center flex-wrap">
 			<TypeButton/>
 			<SetSizeButton/>
@@ -57,7 +57,7 @@ export default {
 	
 <style scoped>
 	#toolbar {
-		width: clamp(124px, 25%, 320px);
+		width: clamp(144px, 25%, 320px);
 	}
 </style>
   
