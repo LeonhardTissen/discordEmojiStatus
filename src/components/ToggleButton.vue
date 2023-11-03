@@ -1,6 +1,6 @@
 <template>
-	<button :class="{ 'toggled': def }" @click="handleClick" class="toolButton selectable border-2 bg-discord-500 hover:bg-discord-200 rounded-lg w-16 h-16 m-1 inline-flex align-center p-2 cursor-pointer">
-		<img :src="'../icons/' + icon + '.svg'" class="color-white invert pointer-events-none">
+	<button :class="{ 'toggled': def }" @click="handleClick" class="toolButton selectable border-2 bg-discord-500 hover:bg-discord-200 rounded-lg w-16 h-16 m-1 inline-flex p-2 cursor-pointer justify-center items-center">
+		<img :src="'../icons/' + icon + '.svg'" class="color-white pointer-events-none w-12">
 	</button>
 </template>
   
