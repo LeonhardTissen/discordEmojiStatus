@@ -57,9 +57,16 @@ export function setDimensions(width: number, height: number): void {
 	con.width = width;
 	con.height = height;
 }
+export function getDimensions(): { width: number, height: number} {
+	return { width: con.width, height: con.height };
+}
 
 export function resetData(): void {
 	con.data = generateEmptyLayer<Emoji>(maxSize, maxSize, Emoji.White);
+}
+
+export function getData(): Array<Array<Emoji>> {
+	return con.data;
 }
 
 function resize(): void {

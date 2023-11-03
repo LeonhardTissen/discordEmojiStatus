@@ -17,7 +17,7 @@
 		<DividerElement/>
 		<div class="flex justify-center flex-wrap">
 			<CopyButton/>
-			<ExportButton/>
+			<CopyButton exporter/>
 		</div>
 	</div>
 </template>
@@ -28,7 +28,6 @@ import ToggleButton from './ToggleButton.vue';
 import TypeButton from './TypeButton.vue';
 import NewButton from './NewButton.vue';
 import CopyButton from './CopyButton.vue';
-import ExportButton from './ExportButton.vue';
 import ColorButton from './ColorButton.vue';
 import { emojiColors, Emoji } from '../emoji';
 import DividerElement from './DividerElement.vue';
@@ -42,8 +41,7 @@ export default {
 		TypeButton,
 		NewButton,
 		DividerElement,
-		CopyButton,
-		ExportButton
+		CopyButton
 	},
 	data() {
 		return { emojiColors, Emoji }
