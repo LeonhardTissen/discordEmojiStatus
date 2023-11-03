@@ -12,8 +12,9 @@
 			<ToggleButton icon="grid"/>
 		</div>
 		<div class="rounded-lg border-2 m-2 p-1 flex justify-center flex-wrap bg-discord-200">
-			<ColorButton v-for="(color, emoji) in emojiColors" :key="emoji" :color="color" :def="emoji === Emoji.Red" />
+			<ColorButton v-for="(color, emoji) in emojiColors" :key="emoji" :color="color" :def="emoji === Emoji.Red" :data-inaccurate="inaccurateEmojis.includes(emoji)" />
 		</div>
+		<InaccurateEmojiButton/>
 		<DividerElement/>
 		<div class="flex justify-center flex-wrap">
 			<CopyButton/>
@@ -29,8 +30,9 @@ import TypeButton from './TypeButton.vue';
 import NewButton from './NewButton.vue';
 import CopyButton from './CopyButton.vue';
 import ColorButton from './ColorButton.vue';
-import { emojiColors, Emoji } from '../emoji';
+import { emojiColors, Emoji, inaccurateEmojis } from '../emoji';
 import DividerElement from './DividerElement.vue';
+import InaccurateEmojiButton from './InaccurateEmojiButton.vue';
 
 export default {
     name: 'ToolSidebar',
@@ -41,10 +43,11 @@ export default {
 		TypeButton,
 		NewButton,
 		DividerElement,
-		CopyButton
+		CopyButton,
+		InaccurateEmojiButton
 	},
 	data() {
-		return { emojiColors, Emoji }
+		return { emojiColors, Emoji, inaccurateEmojis }
 	}
 }
 </script>

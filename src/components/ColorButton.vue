@@ -4,7 +4,7 @@
 		@click="handleClick"
 		:data-color="color"
 		class="colorButton selectable hover:brightness-125 rounded-lg w-8 h-8 inline-flex align-center p-2 cursor-pointer"
-		:style="{backgroundColor: color }"
+		:style="{backgroundColor: color}"
 	/>
 </template>
   
@@ -34,3 +34,9 @@ export default {
 	}
 }
 </script>
+
+<style scoped>
+	.colorButton[data-inaccurate=true] {
+		display: none;
+	}
+</style>

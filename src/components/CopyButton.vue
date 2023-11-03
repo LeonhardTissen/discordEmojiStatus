@@ -40,7 +40,7 @@ export default {
 
 				textarea.rows = height + (prefix.length > 0 ? 1 : 0);
 				textarea.cols = width * 2 + 4;
-				textarea.style.fontSize = `${Math.floor(300 / Math.max(width, height))}px`
+				textarea.style.fontSize = `${Math.floor(300 / Math.max(width, height))}px`;
 
 				textarea.value = finalResult;
 				textarea.classList.add('output');
