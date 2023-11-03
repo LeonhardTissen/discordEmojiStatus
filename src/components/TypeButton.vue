@@ -9,37 +9,7 @@
   
 <script lang="ts">
 import { setDimensions } from '../screen';
-
-let type_index: number = 0;
-
-interface ArrangementType {
-	name: string
-	width: number,
-	height: number
-}
-
-const types: Array<ArrangementType> = [
-	{
-		name: 'Status',
-		width: 13,
-		height: 5,
-	},
-	{
-		name: 'Hover',
-		width: 8,
-		height: 8,
-	},
-	{
-		name: 'About me',
-		width: 13,
-		height: 6,
-	},
-	{
-		name: 'Custom',
-		width: 20,
-		height: 20,
-	}
-];
+import { cycleTypeIndex } from '../arrangements';
 
 export default {
 	name: 'TypeButton',
@@ -47,19 +17,12 @@ export default {
 		handleClick: (ev: MouseEvent) => {
 			const target = ev.target as HTMLElement;
 
-			type_index = (type_index + 1) % types.length;
+			const type = cycleTypeIndex();
 
-			const new_type = types[type_index];
+			target.innerText = `Type: ${type.name}`;
 
-			target.innerText = `Type: ${new_type.name}`;
-
-			setDimensions(new_type.width, new_type.height);
+			setDimensions(type.width, type.height);
 		}
 	}
 }
 </script>
-	
-<style scoped>
-
-</style>
-  
