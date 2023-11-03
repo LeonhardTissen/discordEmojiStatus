@@ -23,8 +23,8 @@ export default {
 			const target = ev.target as HTMLElement;
 			selectOnlyThis('colorButton', target);
 			const color = target.getAttribute('data-color');
-			console.log(color);
 			if (color === null) return;
+			
 			for (const [key, value] of Object.entries(emojiColors)) {
 				if (color === value) {
 					setEmoji(key as Emoji);
