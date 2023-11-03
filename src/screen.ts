@@ -1,5 +1,6 @@
-import { Emoji } from './emoji';
-import { middleMousePressed, spacePressed } from './input';
+import { Emoji, emoji, emojiColors } from './emoji';
+import { leftMousePressed, middleMousePressed, spacePressed } from './input';
+import { Tool, tool } from './tool';
 
 let cvs: HTMLCanvasElement | null = null;
 let ctx: CanvasRenderingContext2D | null = null;
@@ -8,7 +9,7 @@ const sidebarWidth = 320;
 const initialSize = 60;
 const initialWidth = 13;
 const initialHeight = 5;
-const initialGap = 2;
+const initialGap = 1;
 
 export type DataLayer<T> = Array<Array<T>>;
 
@@ -17,16 +18,14 @@ export function generateEmptyLayer<T>(width: number, height: number, def: T): Da
 }
 
 const con = {
-	x: (window.innerWidth + sidebarWidth - initialSize * (initialWidth + initialGap)) / 2,
-	y: (window.innerHeight - initialSize * (initialHeight + initialGap)) / 2,
+	x: (window.innerWidth + sidebarWidth - initialSize * initialWidth) / 2,
+	y: (window.innerHeight - initialSize * initialHeight) / 2,
 	width: initialWidth,
 	height: initialHeight,
 	size: initialSize,
 	gap: initialGap,
 	data: generateEmptyLayer<Emoji>(initialWidth, initialHeight, Emoji.White),
 }
-
-console.log(con.data);
 
 export function initScreen(): void {
 	cvs = document.getElementById('screen') as HTMLCanvasElement;
@@ -51,10 +50,30 @@ function resize(): void {
 }
 
 function mouseMove(event: MouseEvent): void {
-	if (!spacePressed && !middleMousePressed) return;
+	if (spacePressed || middleMousePressed) {
+		con.x += event.movementX;
+		con.y += event.movementY;
+	} else if (leftMousePressed) {
+		const pixelSize = con.size + con.gap;
+		const x = Math.floor((event.clientX - con.x) / pixelSize);
+		const y = Math.floor((event.clientY - con.y) / pixelSize);
+		
+		if (tool === Tool.Pencil) {
+			setPixel(x, y, emoji);
+		} else if (tool === Tool.Brush) {
+			setPixel(x, y, emoji);
+			setPixel(x + 1, y, emoji);
+			setPixel(x, y + 1, emoji);
+			setPixel(x - 1, y, emoji);
+			setPixel(x, y - 1, emoji);
+		}
+	}
+}
 
-	con.x += event.movementX;
-	con.y += event.movementY;
+function setPixel(x: number, y: number, emoji: Emoji): void {
+	if (x < 0 || y < 0 || x >= con.width || y >= con.height) return;
+
+	con.data[y][x] = emoji;
 }
 
 function tick(): void {
@@ -64,8 +83,9 @@ function tick(): void {
 
 	for (let y = 0; y < con.height; y ++) {
 		for (let x = 0; x < con.width; x ++) {
-			const px = con.x + x * (con.size + con.gap);
-			const py = con.y + y * (con.size + con.gap);
+			ctx.fillStyle = emojiColors[con.data[y][x]]
+			const px = Math.round(con.x + x * (con.size + con.gap));
+			const py = Math.round(con.y + y * (con.size + con.gap));
 
 			ctx.fillRect(px, py, con.size, con.size);
 		}	
