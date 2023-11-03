@@ -1,20 +1,16 @@
 <template>
 	<div class="bg-discord h-screen w-screen fixed">
-		<ScreenElement/>
+		<canvas id="screen" class="w-screen h-screen fixed top-0 left-0 cursor-crosshair"/>
 		<ToolSidebar/>
 	</div>
 </template>
 
 <script lang="ts">
-import ScreenElement from './components/ScreenElement.vue';
 import ToolSidebar from './components/ToolSidebar.vue';
 
 export default {
 	name: 'App',
-	components: {
-    ToolSidebar,
-    ScreenElement
-}
+	components: { ToolSidebar }
 }
 </script>
 
