@@ -1,5 +1,5 @@
 import { Emoji, emoji, emojiColors } from './emoji';
-import { leftMousePressed, middleMousePressed, rightMousePressed, spacePressed } from './input';
+import { contextMenu, leftMousePressed, middleMousePressed, mouseDown, mouseUp, mouseWheel, rightMousePressed, spacePressed } from './input';
 import { Tool, tool } from './tool';
 
 let update: boolean = true;
@@ -38,7 +38,11 @@ export function initScreen(): void {
 	if (ctx === null) return;
 
 	window.addEventListener('resize', resize);
-	window.addEventListener('mousemove', mouseMove);
+	cvs.addEventListener('mousemove', mouseMove);
+	cvs.addEventListener('mousedown', mouseDown);
+	cvs.addEventListener('mouseup', mouseUp);
+	cvs.addEventListener('wheel', mouseWheel);
+	cvs.addEventListener('contextmenu', contextMenu);
 
 	resize();
 

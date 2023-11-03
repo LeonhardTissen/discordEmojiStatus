@@ -17,3 +17,9 @@ export function toggleClass(className: string, selectedElement: HTMLElement): bo
 		return true;
 	}
 }
+
+export function hideOutputs(): void {
+	document.querySelectorAll('.output').forEach((outputElement) => {
+		outputElement.remove();
+	})
+}

@@ -12,6 +12,7 @@
 import { getData } from '../screen';
 import { writeToClipboard } from '../clipboard'
 import { getType } from '../arrangements';
+import { hideOutputs } from '../dom';
 
 export default {
 	name: 'CopyButton',
@@ -33,7 +34,21 @@ export default {
 				.join(rowsSeperator);
 
 			if (exporter === 'true') {
-				//
+				hideOutputs();
+
+				const textarea = document.createElement('textarea');
+
+				textarea.rows = height + (prefix.length > 0 ? 1 : 0);
+				textarea.cols = width * 2 + 4;
+				textarea.style.fontSize = `${Math.floor(300 / Math.max(width, height))}px`
+
+				textarea.value = finalResult;
+				textarea.classList.add('output');
+				textarea.addEventListener('wheel', (ev) => {
+					ev.preventDefault();
+				})
+
+				document.body.appendChild(textarea);
 			} else {
 				writeToClipboard(finalResult, successMessage);
 			}

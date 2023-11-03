@@ -1,3 +1,4 @@
+import { hideOutputs } from "./dom";
 import { setCursor, zoom } from "./screen";
 
 export let spacePressed = false;
@@ -20,18 +21,19 @@ document.addEventListener('keyup', (event) => {
 });
 
 
-document.addEventListener('mousedown', (event) => {
+export function mouseDown(event: MouseEvent) {
 	if (event.button === 1) {
 		middleMousePressed = true;
 		setCursor('move');
 	} else if (event.button === 0) {
 		leftMousePressed = true;
+		hideOutputs();
 	} else if (event.button === 2) {
 		rightMousePressed = true;
 	}
-});
+}
   
-document.addEventListener('mouseup', (event) => {
+export function mouseUp(event: MouseEvent) {
 	if (event.button === 1) {
 		middleMousePressed = false;
 		setCursor('crosshair');
@@ -40,12 +42,12 @@ document.addEventListener('mouseup', (event) => {
 	} else if (event.button === 2) {
 		rightMousePressed = false;
 	}
-});
+}
 
-document.addEventListener('wheel', (ev) => {
-	zoom(ev.deltaY > 0);
-})
+export function mouseWheel(event: WheelEvent) {
+	zoom(event.deltaY > 0);
+}
 
-document.addEventListener('contextmenu', (event) => {
+export function contextMenu(event: MouseEvent) {
 	event.preventDefault();
-})
+}
