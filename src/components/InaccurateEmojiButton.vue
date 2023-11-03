@@ -2,7 +2,7 @@
 	<div class="flex flex-wrap items-center justify-center">
 		<button
 			@click="handleClick"
-			class="toolButton selectable border-2 bg-discord-500 text-white hover:bg-discord-200 rounded-lg m-2 inline-flex align-center p-2 cursor-pointer">
+			class="toolButton selectable border-2 bg-discord-500 text-white hover:bg-discord-200 rounded-lg m-1 inline-flex align-center p-2 cursor-pointer">
 			Show inaccurate emojis
 		</button>
 		<button

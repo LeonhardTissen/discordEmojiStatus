@@ -1,4 +1,5 @@
 import { Emoji, emoji, emojiColors } from './emoji';
+import { decode } from './encoder';
 import { contextMenu, leftMousePressed, middleMousePressed, mouseDown, mouseUp, mouseWheel, rightMousePressed, spacePressed } from './input';
 import { Tool, tool } from './tool';
 
@@ -28,6 +29,14 @@ const con = {
 	size: initialSize,
 	gap: initialGap,
 	data: generateEmptyLayer<Emoji>(maxSize, maxSize, Emoji.White),
+}
+
+const hash = window.location.hash.replace('#', '');
+if (hash.length > 0) {
+	const loadedData = decode(hash);
+	con.width = loadedData.width;
+	con.height = loadedData.height;
+	con.data = loadedData.data;
 }
 
 export function initScreen(): void {

@@ -1,10 +1,10 @@
 <template>
 	<button
 		@click="handleClick"
-		:data-export="exporter"
-		class="colorButton text-white bg-discord-500 m-2 border-2 selectable hover:brightness-125 rounded-lg align-center p-2 cursor-pointer"
+		:data-exporter="text"
+		class="colorButton text-white bg-discord-500 m-1 border-2 selectable hover:brightness-125 rounded-lg align-center p-2 cursor-pointer"
 	>
-		{{ exporter ? "Export" : "Copy" }}
+		{{ text }}
 	</button>
 </template>
   
@@ -13,27 +13,39 @@ import { getData } from '../screen';
 import { writeToClipboard } from '../clipboard'
 import { getType } from '../arrangements';
 import { hideOutputs } from '../dom';
+import { encode } from '../encoder';
 
 export default {
 	name: 'CopyButton',
 	props: {
-		exporter: Boolean,
+		text: String,
 	},
 	methods: {
 		handleClick: (ev: MouseEvent) => {
-			const exporter = (ev.target as HTMLElement).getAttribute('data-export');
+			const exporter = (ev.target as HTMLElement).getAttribute('data-exporter');
 
 			const { prefix, width, height, successMessage } = getType();
 			const rowsSeperator = '\n';
 
 			const rawData = getData();
+
+			if (exporter === 'Share') {
+				const encodedData = encode(rawData, width, height);
+
+				window.location.hash = encodedData;
+
+				alert(window.location.href);
+
+				return;
+			}
+
 			const finalResult = prefix + rawData
 				.slice(0, height)
 				.map((a) => a.slice(0, width))
 				.map((a) => a.join(''))
 				.join(rowsSeperator);
 
-			if (exporter === 'true') {
+			if (exporter === 'Export') {
 				hideOutputs();
 
 				const textarea = document.createElement('textarea');
@@ -49,7 +61,7 @@ export default {
 				})
 
 				document.body.appendChild(textarea);
-			} else {
+			} else if (exporter === 'Copy') {
 				writeToClipboard(finalResult, successMessage);
 			}
 		}

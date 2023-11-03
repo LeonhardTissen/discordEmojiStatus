@@ -18,8 +18,9 @@
 		<InaccurateEmojiButton/>
 		<DividerElement/>
 		<div class="flex justify-center flex-wrap">
-			<CopyButton/>
-			<CopyButton exporter/>
+			<CopyButton text="Copy"/>
+			<CopyButton text="Export"/>
+			<CopyButton text="Share"/>
 		</div>
 	</div>
 </template>
