@@ -1,5 +1,5 @@
 import { Emoji, emoji, emojiColors } from './emoji';
-import { leftMousePressed, middleMousePressed, spacePressed } from './input';
+import { leftMousePressed, middleMousePressed, rightMousePressed, spacePressed } from './input';
 import { Tool, tool } from './tool';
 
 let cvs: HTMLCanvasElement | null = null;
@@ -50,30 +50,34 @@ function resize(): void {
 }
 
 function mouseMove(event: MouseEvent): void {
+	const pixelSize = con.size + con.gap;
+	const x = Math.floor((event.clientX - con.x) / pixelSize);
+	const y = Math.floor((event.clientY - con.y) / pixelSize);
+
 	if (spacePressed || middleMousePressed) {
 		con.x += event.movementX;
 		con.y += event.movementY;
-	} else if (leftMousePressed) {
-		const pixelSize = con.size + con.gap;
-		const x = Math.floor((event.clientX - con.x) / pixelSize);
-		const y = Math.floor((event.clientY - con.y) / pixelSize);
+	} else if (leftMousePressed || rightMousePressed) {
+		const to_place = rightMousePressed ? Emoji.White : emoji;
 		
 		if (tool === Tool.Pencil) {
-			setPixel(x, y, emoji);
+			setPixel(x, y, to_place);
 		} else if (tool === Tool.Brush) {
-			setPixel(x, y, emoji);
-			setPixel(x + 1, y, emoji);
-			setPixel(x, y + 1, emoji);
-			setPixel(x - 1, y, emoji);
-			setPixel(x, y - 1, emoji);
+			setPixel(x, y, to_place);
+			setPixel(x + 1, y, to_place);
+			setPixel(x, y + 1, to_place);
+			setPixel(x - 1, y, to_place);
+			setPixel(x, y - 1, to_place);
 		}
 	}
 }
 
-function setPixel(x: number, y: number, emoji: Emoji): void {
-	if (x < 0 || y < 0 || x >= con.width || y >= con.height) return;
+function setPixel(x: number, y: number, emoji: Emoji): boolean {
+	if (x < 0 || y < 0 || x >= con.width || y >= con.height) return false;
 
 	con.data[y][x] = emoji;
+
+	return true;
 }
 
 function tick(): void {
