@@ -8,7 +8,7 @@
 import { selectOnlyThis } from '../dom';
 
 export default {
-	name: 'IconButton',
+	name: 'ToolButton',
 	props: {
 		icon: String,
 		def: Boolean

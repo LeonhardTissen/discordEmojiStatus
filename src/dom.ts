@@ -7,3 +7,11 @@ export function selectOnlyThis(className: string, selectedElement: HTMLElement):
 		}
 	});
 }
+
+export function toggleClass(className: string, selectedElement: HTMLElement): void {
+	if (selectedElement.classList.contains(className)) {
+		selectedElement.classList.remove(className);
+	} else {
+		selectedElement.classList.add(className);
+	}
+}
