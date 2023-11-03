@@ -24,4 +24,9 @@ export default {
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 }
+#screen {
+	background-image: url(./assets/imgs/grid.png);
+	background-size: 121px;
+	image-rendering: pixelated;
+}
 </style>

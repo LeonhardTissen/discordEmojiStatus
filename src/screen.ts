@@ -2,6 +2,7 @@ import { Emoji, emoji, emojiColors } from './emoji';
 import { leftMousePressed, middleMousePressed, rightMousePressed, spacePressed } from './input';
 import { Tool, tool } from './tool';
 
+let update: boolean = true;
 let cvs: HTMLCanvasElement | null = null;
 let ctx: CanvasRenderingContext2D | null = null;
 
@@ -44,18 +45,25 @@ export function initScreen(): void {
 	window.requestAnimationFrame(tick);
 }
 
+export function causeUpdate(): void {
+	update = true;
+}
+
 export function zoom(zoom_in: boolean): void {
 	con.size *= zoom_in ? 0.9 : 1.11111;
 	con.size = Math.round(Math.max(5, Math.min(con.size, 100)));
+	causeUpdate();
 }
 
 export function setGap(size: number): void {
 	con.gap = size;
+	causeUpdate();
 }
 
 export function setDimensions(width: number, height: number): void {
 	con.width = width;
 	con.height = height;
+	causeUpdate();
 }
 export function getDimensions(): { width: number, height: number} {
 	return { width: con.width, height: con.height };
@@ -63,6 +71,7 @@ export function getDimensions(): { width: number, height: number} {
 
 export function resetData(): void {
 	con.data = generateEmptyLayer<Emoji>(maxSize, maxSize, Emoji.White);
+	causeUpdate();
 }
 
 export function getData(): Array<Array<Emoji>> {
@@ -74,6 +83,8 @@ function resize(): void {
 
 	cvs.width = window.innerWidth;
 	cvs.height = window.innerHeight;
+
+	causeUpdate();
 }
 
 function mouseMove(event: MouseEvent): void {
@@ -84,6 +95,8 @@ function mouseMove(event: MouseEvent): void {
 	if (spacePressed || middleMousePressed) {
 		con.x += event.movementX;
 		con.y += event.movementY;
+
+		causeUpdate();
 	} else if (leftMousePressed || rightMousePressed) {
 		const toPlace = rightMousePressed ? Emoji.White : emoji;
 		
@@ -133,22 +146,33 @@ function setPixel(x: number, y: number, emoji: Emoji): boolean {
 
 	con.data[y][x] = emoji;
 
+	causeUpdate();
+
 	return true;
 }
 
 function tick(): void {
-	if (ctx === null) return;
+	if (update && ctx !== null && cvs !== null) {
+		ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+	
+		const pixelSize = con.size + con.gap;
+	
+		for (let y = 0; y < con.height; y ++) {
+			for (let x = 0; x < con.width; x ++) {
+				ctx.fillStyle = emojiColors[con.data[y][x]];
+	
+				const px = Math.round(con.x + x * pixelSize);
+				const py = Math.round(con.y + y * pixelSize);
+	
+				ctx.fillRect(px, py, con.size, con.size);
+			}	
+		}
+	
+		cvs.style.backgroundSize = `${pixelSize * 2}px`;
+		cvs.style.backgroundPosition = `${con.x}px ${con.y}px`;
 
-	ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
-
-	for (let y = 0; y < con.height; y ++) {
-		for (let x = 0; x < con.width; x ++) {
-			ctx.fillStyle = emojiColors[con.data[y][x]]
-			const px = Math.round(con.x + x * (con.size + con.gap));
-			const py = Math.round(con.y + y * (con.size + con.gap));
-
-			ctx.fillRect(px, py, con.size, con.size);
-		}	
+		update = false;
+		console.log('Updated!');
 	}
 
 	window.requestAnimationFrame(tick);
