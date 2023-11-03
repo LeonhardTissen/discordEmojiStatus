@@ -42,6 +42,11 @@ export function initScreen(): void {
 	window.requestAnimationFrame(tick);
 }
 
+export function zoom(zoom_in: boolean): void {
+	con.size *= zoom_in ? 0.9 : 1.11111;
+	con.size = Math.round(Math.max(5, Math.min(con.size, 100)));
+}
+
 function resize(): void {
 	if (cvs === null) return;
 

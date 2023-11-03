@@ -1,4 +1,4 @@
-import { setCursor } from "./screen";
+import { setCursor, zoom } from "./screen";
 
 export let spacePressed = false;
 export let middleMousePressed = false;
@@ -41,6 +41,10 @@ document.addEventListener('mouseup', (event) => {
 		rightMousePressed = false;
 	}
 });
+
+document.addEventListener('wheel', (ev) => {
+	zoom(ev.deltaY > 0);
+})
 
 document.addEventListener('contextmenu', (event) => {
 	event.preventDefault();
