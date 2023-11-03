@@ -33,10 +33,18 @@ const con = {
 
 const hash = window.location.hash.replace('#', '');
 if (hash.length > 0) {
+	// Data in hash found, decode it
 	const loadedData = decode(hash);
+
 	con.width = loadedData.width;
 	con.height = loadedData.height;
-	con.data = loadedData.data;
+
+	// Insert data from hash into current board
+	for (let y = 0; y < loadedData.height; y ++) {
+		for (let x = 0; x < loadedData.width; x ++) {
+			con.data[y][x] = loadedData.data[y][x]
+		}	
+	}
 }
 
 export function initScreen(): void {

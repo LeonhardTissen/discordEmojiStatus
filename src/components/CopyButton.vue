@@ -9,7 +9,7 @@
 </template>
   
 <script lang="ts">
-import { getData } from '../screen';
+import { getData, getDimensions } from '../screen';
 import { writeToClipboard } from '../clipboard'
 import { getType } from '../arrangements';
 import { hideOutputs } from '../dom';
@@ -29,19 +29,20 @@ export default {
 
 			const rawData = getData();
 
+			const slicedData = rawData
+				.slice(0, height)
+				.map((a) => a.slice(0, width))
+
 			if (exporter === 'Share') {
-				const encodedData = encode(rawData, width, height);
+				const dim = getDimensions();
+				window.location.hash = encode(slicedData, dim.width, dim.height);
 
-				window.location.hash = encodedData;
-
-				alert(window.location.href);
+				writeToClipboard(window.location.href, 'URL copied to clipboard');
 
 				return;
 			}
 
-			const finalResult = prefix + rawData
-				.slice(0, height)
-				.map((a) => a.slice(0, width))
+			const finalResult = prefix + slicedData
 				.map((a) => a.join(''))
 				.join(rowsSeperator);
 
