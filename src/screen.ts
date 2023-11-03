@@ -159,20 +159,18 @@ function tick(): void {
 	if (update && ctx !== null && cvs !== null) {
 		ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
 	
-		const pixelSize = con.size + con.gap;
-	
 		for (let y = 0; y < con.height; y ++) {
 			for (let x = 0; x < con.width; x ++) {
 				ctx.fillStyle = emojiColors[con.data[y][x]];
 	
-				const px = Math.round(con.x + x * pixelSize);
-				const py = Math.round(con.y + y * pixelSize);
+				const px = Math.round(con.x + x * con.size);
+				const py = Math.round(con.y + y * con.size);
 	
-				ctx.fillRect(px, py, con.size, con.size);
+				ctx.fillRect(px, py, con.size - con.gap, con.size - con.gap);
 			}	
 		}
 	
-		cvs.style.backgroundSize = `${pixelSize * 2}px`;
+		cvs.style.backgroundSize = `${con.size * 2}px`;
 		cvs.style.backgroundPosition = `${con.x}px ${con.y}px`;
 
 		update = false;

@@ -12,7 +12,7 @@
 			<ToolButton icon="bucket"/>
 			<ToggleButton icon="grid"/>
 		</div>
-		<div class="rounded-lg border-2 m-2 p-1 flex justify-center flex-wrap bg-discord-200">
+		<div class="rounded-lg border-2 m-1 p-1 flex justify-center flex-wrap bg-discord-200">
 			<ColorButton v-for="(color, emoji) in emojiColors" :key="emoji" :color="color" :def="emoji === Emoji.Red" :data-inaccurate="inaccurateEmojis.includes(emoji)" />
 		</div>
 		<InaccurateEmojiButton/>
