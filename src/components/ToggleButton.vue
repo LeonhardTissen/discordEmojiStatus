@@ -5,6 +5,7 @@
 </template>
   
 <script lang="ts">
+import { setGap } from '@/screen';
 import { toggleClass } from '../dom';
 
 export default {
@@ -15,7 +16,8 @@ export default {
 	},
 	methods: {
 		handleClick: (ev: MouseEvent) => {
-			toggleClass('toggled', ev.target as HTMLElement);
+			const toggled = toggleClass('toggled', ev.target as HTMLElement);
+			setGap(toggled ? 0 : 1);
 		}
 	}
 }

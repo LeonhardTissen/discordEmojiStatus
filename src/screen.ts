@@ -24,7 +24,7 @@ const con = {
 	height: initialHeight,
 	size: initialSize,
 	gap: initialGap,
-	data: generateEmptyLayer<Emoji>(initialWidth, initialHeight, Emoji.White),
+	data: generateEmptyLayer<Emoji>(30, 30, Emoji.White),
 }
 
 export function initScreen(): void {
@@ -45,6 +45,15 @@ export function initScreen(): void {
 export function zoom(zoom_in: boolean): void {
 	con.size *= zoom_in ? 0.9 : 1.11111;
 	con.size = Math.round(Math.max(5, Math.min(con.size, 100)));
+}
+
+export function setGap(size: number): void {
+	con.gap = size;
+}
+
+export function setDimensions(width: number, height: number): void {
+	con.width = width;
+	con.height = height;
 }
 
 function resize(): void {

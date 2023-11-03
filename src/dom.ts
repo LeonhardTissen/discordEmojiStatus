@@ -8,10 +8,12 @@ export function selectOnlyThis(className: string, selectedElement: HTMLElement):
 	});
 }
 
-export function toggleClass(className: string, selectedElement: HTMLElement): void {
+export function toggleClass(className: string, selectedElement: HTMLElement): boolean {
 	if (selectedElement.classList.contains(className)) {
 		selectedElement.classList.remove(className);
+		return false;
 	} else {
 		selectedElement.classList.add(className);
+		return true;
 	}
 }
