@@ -1,5 +1,8 @@
 <template>
 	<div class="w-80 h-full bg-discord-400 fixed top-0 left-0">
+		<div id="buttons" class="flex">
+			<TypeButton/>
+		</div>
 		<div id="tools">
 			<ToolButton icon="pencil" def/>
 			<ToolButton icon="brush"/>
@@ -16,6 +19,7 @@
 <script lang="ts">
 import ToolButton from './ToolButton.vue';
 import ToggleButton from './ToggleButton.vue';
+import TypeButton from './TypeButton.vue';
 import ColorButton from './ColorButton.vue';
 import { emojiColors, Emoji } from '../emoji';
 
@@ -25,6 +29,7 @@ export default {
 		ToolButton,
 		ToggleButton,
 		ColorButton,
+		TypeButton,
 	},
 	data() {
 		return { emojiColors, Emoji }
