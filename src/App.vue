@@ -1,17 +1,20 @@
 <template>
 	<div class="bg-discord h-screen w-screen fixed">
+		<ScreenElement/>
 		<ToolSidebar/>
 	</div>
 </template>
 
 <script lang="ts">
+import ScreenElement from './components/ScreenElement.vue';
 import ToolSidebar from './components/ToolSidebar.vue';
 
 export default {
 	name: 'App',
 	components: {
-		ToolSidebar
-	}
+    ToolSidebar,
+    ScreenElement
+}
 }
 </script>
 
