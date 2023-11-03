@@ -91,10 +91,12 @@ function resize(): void {
 	causeUpdate();
 }
 
+let mouse_x: number = 0;
+let mouse_y: number = 0;
+
 function mouseMove(event: MouseEvent): void {
-	const pixelSize = con.size + con.gap;
-	const x = Math.floor((event.clientX - con.x) / pixelSize);
-	const y = Math.floor((event.clientY - con.y) / pixelSize);
+	mouse_x = Math.floor((event.clientX - con.x) / con.size);
+	mouse_y = Math.floor((event.clientY - con.y) / con.size);
 
 	if (spacePressed || middleMousePressed) {
 		con.x += event.movementX;
@@ -102,19 +104,22 @@ function mouseMove(event: MouseEvent): void {
 
 		causeUpdate();
 	} else if (leftMousePressed || rightMousePressed) {
-		const toPlace = rightMousePressed ? Emoji.White : emoji;
-		
-		if (tool === Tool.Pencil) {
-			setPixel(x, y, toPlace);
-		} else if (tool === Tool.Brush) {
-			setPixel(x, y, toPlace);
-			setPixel(x + 1, y, toPlace);
-			setPixel(x, y + 1, toPlace);
-			setPixel(x - 1, y, toPlace);
-			setPixel(x, y - 1, toPlace);
-		} else if (tool === Tool.Bucket) {
-			iterateBucket(x, y, toPlace, con.data[y][x]);
-		}
+		causeClick(rightMousePressed ? Emoji.White : emoji);
+	}
+}
+
+export function causeClick(toPlace: Emoji): void {
+	console.log(toPlace);
+	if (tool === Tool.Pencil) {
+		setPixel(mouse_x, mouse_y, toPlace);
+	} else if (tool === Tool.Brush) {
+		setPixel(mouse_x, mouse_y, toPlace);
+		setPixel(mouse_x + 1, mouse_y, toPlace);
+		setPixel(mouse_x, mouse_y + 1, toPlace);
+		setPixel(mouse_x - 1, mouse_y, toPlace);
+		setPixel(mouse_x, mouse_y - 1, toPlace);
+	} else if (tool === Tool.Bucket) {
+		iterateBucket(mouse_x, mouse_y, toPlace, con.data[mouse_y][mouse_x]);
 	}
 }
 
@@ -126,7 +131,7 @@ const neighbours: Array<[number, number]> = [
 ];
 
 function iterateBucket(x: number, y: number, toPlace: Emoji, toReplace: Emoji): boolean {
-	const hasPlaced = setPixel(x, y, emoji);
+	const hasPlaced = setPixel(x, y, toPlace);
 
 	if (!hasPlaced) return false;
 

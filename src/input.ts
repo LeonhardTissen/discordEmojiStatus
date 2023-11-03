@@ -1,5 +1,6 @@
 import { hideOutputs } from "./dom";
-import { setCursor, zoom } from "./screen";
+import { Emoji, emoji } from "./emoji";
+import { causeClick, setCursor, zoom } from "./screen";
 
 export let spacePressed = false;
 export let middleMousePressed = false;
@@ -28,8 +29,10 @@ export function mouseDown(event: MouseEvent) {
 	} else if (event.button === 0) {
 		leftMousePressed = true;
 		hideOutputs();
+		causeClick(emoji);
 	} else if (event.button === 2) {
 		rightMousePressed = true;
+		causeClick(Emoji.White);
 	}
 }
   
