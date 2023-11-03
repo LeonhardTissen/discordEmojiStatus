@@ -1,18 +1,22 @@
 <template>
-	<div class="w-80 h-full bg-discord-400 fixed top-0 left-0">
-		<div id="buttons" class="flex justify-between">
+	<div id="toolbar" class="h-full bg-discord-500-a backdrop-blur-sm fixed top-0 left-0 flex items-center justify-center flex-col">
+		<div class="flex justify-center flex-wrap">
 			<TypeButton/>
 			<NewButton/>
 		</div>
-		<div id="tools">
+		<div class="flex flex-wrap justify-center">
 			<ToolButton icon="pencil" def/>
 			<ToolButton icon="brush"/>
 			<ToolButton icon="bucket"/>
 			<ToggleButton icon="grid"/>
 		</div>
-		<hr class="border-discord-200 border-2">
-		<div id="colors" class="rounded-lg border-2 m-2 p-1 flex justify-center">
+		<hr class="border-discord-200 border-2 w-full">
+		<div class="rounded-lg border-2 m-2 p-1 flex justify-center flex-wrap bg-discord-200">
 			<ColorButton v-for="(color, emoji) in emojiColors" :key="emoji" :color="color" :def="emoji === Emoji.Red" />
+		</div>
+		<div>
+			<TypeButton/>
+			<NewButton/>
 		</div>
 	</div>
 </template>
@@ -41,6 +45,8 @@ export default {
 </script>
 	
 <style scoped>
-
+	#toolbar {
+		width: clamp(124px, 25%, 320px);
+	}
 </style>
   

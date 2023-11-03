@@ -3,7 +3,7 @@
 		:class="{ 'selected': def }"
 		@click="handleClick"
 		:data-color="color"
-		class="colorButton selectable hover:brightness-125 rounded-lg w-8 h-8 inline-flex align-center p-2 cursor-pointer flex-grow"
+		class="colorButton selectable hover:brightness-125 rounded-lg w-8 h-8 inline-flex align-center p-2 cursor-pointer"
 		:style="{backgroundColor: color }"
 	/>
 </template>
