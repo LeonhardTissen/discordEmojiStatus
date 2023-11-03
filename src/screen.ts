@@ -85,22 +85,51 @@ function mouseMove(event: MouseEvent): void {
 		con.x += event.movementX;
 		con.y += event.movementY;
 	} else if (leftMousePressed || rightMousePressed) {
-		const to_place = rightMousePressed ? Emoji.White : emoji;
+		const toPlace = rightMousePressed ? Emoji.White : emoji;
 		
 		if (tool === Tool.Pencil) {
-			setPixel(x, y, to_place);
+			setPixel(x, y, toPlace);
 		} else if (tool === Tool.Brush) {
-			setPixel(x, y, to_place);
-			setPixel(x + 1, y, to_place);
-			setPixel(x, y + 1, to_place);
-			setPixel(x - 1, y, to_place);
-			setPixel(x, y - 1, to_place);
+			setPixel(x, y, toPlace);
+			setPixel(x + 1, y, toPlace);
+			setPixel(x, y + 1, toPlace);
+			setPixel(x - 1, y, toPlace);
+			setPixel(x, y - 1, toPlace);
+		} else if (tool === Tool.Bucket) {
+			iterateBucket(x, y, toPlace, con.data[y][x]);
 		}
 	}
 }
 
+const neighbours: Array<[number, number]> = [
+	[1, 0],
+	[0, 1],
+	[-1,0],
+	[0,-1],
+];
+
+function iterateBucket(x: number, y: number, toPlace: Emoji, toReplace: Emoji): boolean {
+	const hasPlaced = setPixel(x, y, emoji);
+
+	if (!hasPlaced) return false;
+
+	neighbours.forEach((neighbour) => {
+		const nx = x + neighbour[0];
+		const ny = y + neighbour[1];
+		if (!isOutOfBounds(nx, ny) && con.data[ny][nx] === toReplace) {
+			iterateBucket(nx, ny, toPlace, toReplace);
+		}
+	});
+
+	return true;
+}
+
+function isOutOfBounds(x: number, y: number): boolean {
+	return x < 0 || y < 0 || x >= con.width || y >= con.height;
+}
+
 function setPixel(x: number, y: number, emoji: Emoji): boolean {
-	if (x < 0 || y < 0 || x >= con.width || y >= con.height) return false;
+	if (isOutOfBounds(x, y) || con.data[y][x] === emoji) return false;
 
 	con.data[y][x] = emoji;
 
