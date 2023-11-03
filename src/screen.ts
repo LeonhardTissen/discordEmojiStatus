@@ -11,6 +11,8 @@ const initialWidth = 13;
 const initialHeight = 5;
 const initialGap = 1;
 
+const maxSize = 30;
+
 export type DataLayer<T> = Array<Array<T>>;
 
 export function generateEmptyLayer<T>(width: number, height: number, def: T): DataLayer<T> {
@@ -24,7 +26,7 @@ const con = {
 	height: initialHeight,
 	size: initialSize,
 	gap: initialGap,
-	data: generateEmptyLayer<Emoji>(30, 30, Emoji.White),
+	data: generateEmptyLayer<Emoji>(maxSize, maxSize, Emoji.White),
 }
 
 export function initScreen(): void {
@@ -54,6 +56,10 @@ export function setGap(size: number): void {
 export function setDimensions(width: number, height: number): void {
 	con.width = width;
 	con.height = height;
+}
+
+export function resetData(): void {
+	con.data = generateEmptyLayer<Emoji>(maxSize, maxSize, Emoji.White);
 }
 
 function resize(): void {
