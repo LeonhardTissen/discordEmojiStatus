@@ -109,7 +109,6 @@ function mouseMove(event: MouseEvent): void {
 }
 
 export function causeClick(toPlace: Emoji): void {
-	console.log(toPlace);
 	if (tool === Tool.Pencil) {
 		setPixel(mouse_x, mouse_y, toPlace);
 	} else if (tool === Tool.Brush) {
@@ -179,7 +178,6 @@ function tick(): void {
 		cvs.style.backgroundPosition = `${con.x}px ${con.y}px`;
 
 		update = false;
-		console.log('Updated!');
 	}
 
 	window.requestAnimationFrame(tick);
