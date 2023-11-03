@@ -2,6 +2,7 @@
 	<div id="toolbar" class="h-full bg-discord-500-a backdrop-blur-sm fixed top-0 left-0 flex items-center justify-center flex-col">
 		<div class="flex justify-center flex-wrap">
 			<TypeButton/>
+			<SetSizeButton/>
 			<NewButton/>
 		</div>
 		<DividerElement/>
@@ -33,6 +34,7 @@ import ColorButton from './ColorButton.vue';
 import { emojiColors, Emoji, inaccurateEmojis } from '../emoji';
 import DividerElement from './DividerElement.vue';
 import InaccurateEmojiButton from './InaccurateEmojiButton.vue';
+import SetSizeButton from './SetSizeButton.vue';
 
 export default {
     name: 'ToolSidebar',
@@ -44,7 +46,8 @@ export default {
 		NewButton,
 		DividerElement,
 		CopyButton,
-		InaccurateEmojiButton
+		InaccurateEmojiButton,
+		SetSizeButton
 	},
 	data() {
 		return { emojiColors, Emoji, inaccurateEmojis }

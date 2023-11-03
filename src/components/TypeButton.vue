@@ -22,6 +22,9 @@ export default {
 			target.innerText = `Type: ${type.name}`;
 
 			setDimensions(type.width, type.height);
+
+			const setSizeButton = document.getElementById('setSizeButton') as HTMLElement;
+			setSizeButton.style.display = type.name === "Custom" ? 'block' : 'none';
 		}
 	}
 }

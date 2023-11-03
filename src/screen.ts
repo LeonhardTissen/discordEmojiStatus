@@ -12,7 +12,7 @@ const initialWidth = 13;
 const initialHeight = 5;
 const initialGap = 1;
 
-const maxSize = 30;
+export const maxSize = 64;
 
 export type DataLayer<T> = Array<Array<T>>;
 
