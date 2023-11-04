@@ -58,6 +58,8 @@ export function initScreen(): void {
 	cvs.addEventListener('mousemove', mouseMove);
 	cvs.addEventListener('mousedown', mouseDown);
 	cvs.addEventListener('mouseup', mouseUp);
+	cvs.addEventListener('touchstart', touchStart);
+	cvs.addEventListener('touchmove', touchMove);
 	cvs.addEventListener('wheel', mouseWheel);
 	cvs.addEventListener('contextmenu', contextMenu);
 
@@ -108,12 +110,12 @@ function resize(): void {
 	causeUpdate();
 }
 
-let mouse_x: number = 0;
-let mouse_y: number = 0;
+let mouseX: number = 0;
+let mouseY: number = 0;
 
 function mouseMove(event: MouseEvent): void {
-	mouse_x = Math.floor((event.clientX - con.x) / con.size);
-	mouse_y = Math.floor((event.clientY - con.y) / con.size);
+	mouseX = Math.floor((event.clientX - con.x) / con.size);
+	mouseY = Math.floor((event.clientY - con.y) / con.size);
 
 	if (spacePressed || middleMousePressed) {
 		con.x += event.movementX;
@@ -125,17 +127,42 @@ function mouseMove(event: MouseEvent): void {
 	}
 }
 
+let touchX: number = 0;
+let touchY: number = 0;
+
+function touchStart(event: TouchEvent): void {
+	const touch = event.touches[0];
+
+	touchX = touch.clientX;
+	touchY = touch.clientY;
+}
+
+function touchMove(event: TouchEvent): void {
+	const touch = event.touches[0];
+
+	const changeX = touch.clientX - touchX; 
+	const changeY = touch.clientY - touchY;
+
+	con.x += changeX;
+	con.y += changeY;
+
+	touchX = touch.clientX;
+	touchY = touch.clientY;
+
+	causeUpdate();
+}
+
 export function causeClick(toPlace: Emoji): void {
 	if (tool === Tool.Pencil) {
-		setPixel(mouse_x, mouse_y, toPlace);
+		setPixel(mouseX, mouseY, toPlace);
 	} else if (tool === Tool.Brush) {
-		setPixel(mouse_x, mouse_y, toPlace);
-		setPixel(mouse_x + 1, mouse_y, toPlace);
-		setPixel(mouse_x, mouse_y + 1, toPlace);
-		setPixel(mouse_x - 1, mouse_y, toPlace);
-		setPixel(mouse_x, mouse_y - 1, toPlace);
+		setPixel(mouseX, mouseY, toPlace);
+		setPixel(mouseX + 1, mouseY, toPlace);
+		setPixel(mouseX, mouseY + 1, toPlace);
+		setPixel(mouseX - 1, mouseY, toPlace);
+		setPixel(mouseX, mouseY - 1, toPlace);
 	} else if (tool === Tool.Bucket) {
-		iterateBucket(mouse_x, mouse_y, toPlace, con.data[mouse_y][mouse_x]);
+		iterateBucket(mouseX, mouseY, toPlace, con.data[mouseY][mouseX]);
 	}
 }
 
