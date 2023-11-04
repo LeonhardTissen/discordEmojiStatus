@@ -1,6 +1,6 @@
 <template>
 	<div class="bg-discord h-screen w-screen fixed">
-		<canvas id="screen" class="w-screen h-screen fixed top-0 left-0 cursor-crosshair"/>
+		<canvas id="screen" class="fixed top-0 left-0 cursor-crosshair"/>
 		<ToolSidebar/>
 	</div>
 </template>
