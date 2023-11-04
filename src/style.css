@@ -24,3 +24,6 @@
 	border: 4px solid #000D;
 	border-radius: 8px;
 }
+html, body {
+	overscroll-behavior-y: contain;
+}

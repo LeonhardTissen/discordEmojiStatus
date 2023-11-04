@@ -58,8 +58,8 @@ export function initScreen(): void {
 	cvs.addEventListener('mousemove', mouseMove);
 	cvs.addEventListener('mousedown', mouseDown);
 	cvs.addEventListener('mouseup', mouseUp);
-	cvs.addEventListener('touchstart', touchStart);
-	cvs.addEventListener('touchmove', touchMove);
+	cvs.addEventListener('touchstart', touchStart, {passive: false});
+	cvs.addEventListener('touchmove', touchMove, {passive: false});
 	cvs.addEventListener('wheel', mouseWheel);
 	cvs.addEventListener('contextmenu', contextMenu);
 
@@ -72,8 +72,8 @@ export function causeUpdate(): void {
 	update = true;
 }
 
-export function zoom(zoom_in: boolean): void {
-	con.size *= zoom_in ? 0.9 : 1.11111;
+export function zoom(zoom_out: boolean): void {
+	con.size *= zoom_out ? 0.9 : 1.11111;
 	con.size = Math.round(Math.max(5, Math.min(con.size, 100)));
 	causeUpdate();
 }

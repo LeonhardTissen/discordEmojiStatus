@@ -37,13 +37,13 @@ export const arrangementTypes: Array<ArrangementType> = [
 	}
 ];
 
-export let type_index: number = 0;
+let typeIndex: number = 0;
 
 export function cycleTypeIndex(): ArrangementType {
-	type_index = (type_index + 1) % arrangementTypes.length;
+	typeIndex = (typeIndex + 1) % arrangementTypes.length;
 	return getType();
 }
 
 export function getType(): ArrangementType {
-	return arrangementTypes[type_index];
+	return arrangementTypes[typeIndex];
 }
