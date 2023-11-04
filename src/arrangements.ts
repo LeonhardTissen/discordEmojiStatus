@@ -1,9 +1,10 @@
-interface ArrangementType {
-	name: string
-	width: number,
-	height: number,
-	successMessage: string
-	prefix: string
+type ArrangementType = {
+	name: string;
+	width: number;
+	height: number;
+	successMessage: string;
+	prefix: string;
+	newLine: string;
 }
 
 export const arrangementTypes: Array<ArrangementType> = [
@@ -13,13 +14,15 @@ export const arrangementTypes: Array<ArrangementType> = [
 		height: 5,
 		successMessage: 'Copied to clipboard! Now paste it into your discord status.',
 		prefix: '',
+		newLine: '\n',
 	},
 	{
 		name: 'Hover',
-		width: 8,
-		height: 8,
+		width: 9,
+		height: 7,
 		successMessage: 'Copied to clipboard! Now paste it into your discord status.',
 		prefix: '⸻Hover on me!⸻\n',
+		newLine: '\n'
 	},
 	{
 		name: 'About me',
@@ -27,6 +30,7 @@ export const arrangementTypes: Array<ArrangementType> = [
 		height: 6,
 		successMessage: 'Copied to clipboard! Now paste it into your discord\'s about me.',
 		prefix: '',
+		newLine: '\n',
 	},
 	{
 		name: 'Custom',
@@ -34,6 +38,7 @@ export const arrangementTypes: Array<ArrangementType> = [
 		height: 20,
 		successMessage: 'Copied to clipboard!',
 		prefix: '',
+		newLine: '\n',
 	}
 ];
 

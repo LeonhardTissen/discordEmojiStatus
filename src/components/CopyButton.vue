@@ -24,8 +24,8 @@ export default {
 		handleClick: (ev: MouseEvent) => {
 			const exporter = (ev.target as HTMLElement).getAttribute('data-exporter');
 
-			const { prefix, width, height, successMessage } = getType();
-			const rowsSeperator = '\n';
+			const { prefix, successMessage, newLine } = getType();
+			const { width, height } = getDimensions();
 
 			const rawData = getData();
 
@@ -34,8 +34,7 @@ export default {
 				.map((a) => a.slice(0, width))
 
 			if (exporter === 'Share') {
-				const dim = getDimensions();
-				window.location.hash = encode(slicedData, dim.width, dim.height);
+				window.location.hash = encode(slicedData, width, height);
 
 				writeToClipboard(window.location.href, 'URL copied to clipboard');
 
@@ -44,7 +43,7 @@ export default {
 
 			const finalResult = prefix + slicedData
 				.map((a) => a.join(''))
-				.join(rowsSeperator);
+				.join(newLine);
 
 			if (exporter === 'Export') {
 				hideOutputs();
